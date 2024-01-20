@@ -57,6 +57,11 @@ sensor:
     ratgdo_id: ${id_prefix}
     name: "Paired Devices"
     icon: mdi:remote
+  - platform: ultrasonic
+    id: ${id_prefix}_car_distance
+    trigger_pin: ${dry_contact_open_pin}
+    echo_pin: ${dry_contact_close_pin}
+    name: "Car Distance"
 
 lock:
   - platform: ratgdo
@@ -121,42 +126,42 @@ binary_sensor:
     name: "Motor"
     device_class: running
     entity_category: diagnostic
-  - platform: gpio
-    id: "${id_prefix}_dry_contact_open"
-    pin:
-      number: ${dry_contact_open_pin}  # D5 dry contact for opening door
-      inverted: true
-      mode:
-        input: true
-        pullup: true
-    name: "Dry contact open"
-    entity_category: diagnostic
-    filters:
-      - delayed_on_off: 500ms
-    on_press:
-      - if:
-          condition:
-            binary_sensor.is_off: ${id_prefix}_dry_contact_close
-          then:
-            - cover.open: ${id_prefix}_garage_door
-  - platform: gpio
-    id: "${id_prefix}_dry_contact_close"
-    pin:
-      number: ${dry_contact_close_pin}  # D6 dry contact for closing door
-      inverted: true
-      mode:
-        input: true
-        pullup: true
-    name: "Dry contact close"
-    entity_category: diagnostic
-    filters:
-      - delayed_on_off: 500ms
-    on_press:
-      - if:
-          condition:
-            binary_sensor.is_off: ${id_prefix}_dry_contact_open
-          then:
-            - cover.close: ${id_prefix}_garage_door
+  # - platform: gpio
+  #   id: "${id_prefix}_dry_contact_open"
+  #   pin:
+  #     number: ${dry_contact_open_pin}  # D5 dry contact for opening door
+  #     inverted: true
+  #     mode:
+  #       input: true
+  #       pullup: true
+  #   name: "Dry contact open"
+  #   entity_category: diagnostic
+  #   filters:
+  #     - delayed_on_off: 500ms
+  #   on_press:
+  #     - if:
+  #         condition:
+  #           binary_sensor.is_off: ${id_prefix}_dry_contact_close
+  #         then:
+  #           - cover.open: ${id_prefix}_garage_door
+  # - platform: gpio
+  #   id: "${id_prefix}_dry_contact_close"
+  #   pin:
+  #     number: ${dry_contact_close_pin}  # D6 dry contact for closing door
+  #     inverted: true
+  #     mode:
+  #       input: true
+  #       pullup: true
+  #   name: "Dry contact close"
+  #   entity_category: diagnostic
+  #   filters:
+  #     - delayed_on_off: 500ms
+  #   on_press:
+  #     - if:
+  #         condition:
+  #           binary_sensor.is_off: ${id_prefix}_dry_contact_open
+  #         then:
+  #           - cover.close: ${id_prefix}_garage_door
   - platform: gpio
     id: "${id_prefix}_dry_contact_light"
     pin:
