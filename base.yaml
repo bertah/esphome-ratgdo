@@ -61,6 +61,7 @@ sensor:
     id: ${id_prefix}_car_distance
     trigger_pin: ${dry_contact_open_pin}
     echo_pin: ${dry_contact_close_pin}
+    update_interval: ${ultrasonic_update_interval}
     name: "Car Distance"
 
 lock:
