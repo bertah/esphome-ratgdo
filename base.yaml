@@ -57,6 +57,7 @@ sensor:
     ratgdo_id: ${id_prefix}
     name: "Paired Devices"
     icon: mdi:remote
+    # Ultrasonic sensor
   - platform: ultrasonic
     id: ${id_prefix}_car_distance
     trigger_pin: ${dry_contact_open_pin}
@@ -177,6 +178,17 @@ binary_sensor:
       - delayed_on_off: 500ms
     on_press:
       - light.toggle: ${id_prefix}_light
+  - platform: template
+    name: "Car prensence"
+    device_class: presence
+    lambda: |-
+      if (id(${id_prefix}_car_distance).state > 50 && id(${id_prefix}_car_distance).state < 70) {
+        // Car is present
+        return true;
+      } else {
+        // Car is absent
+        return false;
+      }
 
 number:
   - platform: ratgdo
