@@ -182,7 +182,7 @@ binary_sensor:
     name: "Car prensence"
     device_class: presence
     lambda: |-
-      if (id(${id_prefix}_car_distance).state > 50 && id(${id_prefix}_car_distance).state < 70) {
+      if (id(${id_prefix}_car_distance).state > 0.5 && id(${id_prefix}_car_distance).state < 0.7) {
         // Car is present
         return true;
       } else {
