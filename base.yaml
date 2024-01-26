@@ -182,7 +182,6 @@ binary_sensor:
     name: "Car presence"
     device_class: presence
     lambda: |-
-      ESP_LOGD("main", id(${id_prefix}_car_distance).state, id(${id_prefix}_car_distance));
       if (id(${id_prefix}_car_distance).state > 0.5 && id(${id_prefix}_car_distance).state < 0.7) {
         // Car is present
         return true;
